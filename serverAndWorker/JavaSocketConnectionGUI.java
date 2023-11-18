@@ -1,9 +1,8 @@
-package serverAndWorker;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+package serverAndWorker;
 
 /**
  *
@@ -86,10 +85,16 @@ public class JavaSocketConnectionGUI extends javax.swing.JFrame {
             Integer port =  Integer.parseInt(jTextField2.getText());
             System.out.println(port);
             server = new Server(port);
+
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                System.out.println("Shutting down the server...");
+                server.stop();
+            }));
+
+            server.run();
         }
         
-        server.run();
-
+        
 
         
 
