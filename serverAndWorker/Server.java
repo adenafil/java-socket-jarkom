@@ -48,17 +48,4 @@ public class Server {
     public String getStatus() {
         return this.status;
     }
-
-    public static void main(String[] args) {
-        int port = 1111; // Change the port as needed
-        Server server = new Server(port);
-
-        // Register a shutdown hook to gracefully stop the server
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Shutting down the server...");
-            server.stop();
-        }));
-
-        server.run();
-    }
 }
