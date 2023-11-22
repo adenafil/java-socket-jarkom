@@ -1,16 +1,11 @@
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 public class EnterYourIP extends JFrame {
-    // private String ipAddress;
-    // private String port;
-
-    JLabel label = new JLabel();
 
     EnterYourIP() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -24,16 +19,21 @@ public class EnterYourIP extends JFrame {
         port.setPreferredSize(new Dimension(250, 40));
         port.setText("Port");
 
+        JTextField name = new JTextField();
+        name.setPreferredSize(new Dimension(250, 40));
+        name.setText("Your Name");
+
         JButton button = new JButton("Connect");
         
         this.add(button);
         button.addActionListener(e -> {
             if (e.getSource() == button) {
-                System.out.println("Trying to connect to " + ip.getText() + " with port : " + port.getText());
+                System.out.println(name.getText() + " Trying to connect to " + ip.getText() + " with port : " + port.getText());
                 dispose();
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        new GuiClientJava(ip.getText(), Integer.parseInt(port.getText())).setVisible(true);
+                        System.out.println("Stastus : 200 OK");
+                        new GuiClientJava(ip.getText(), Integer.parseInt(port.getText()), name.getText()).setVisible(true);
         
                     }
                 });            
@@ -43,6 +43,7 @@ public class EnterYourIP extends JFrame {
 
         this.add(ip);
         this.add(port);
+        this.add(name);
         this.pack();
         this.setVisible(true);
     }

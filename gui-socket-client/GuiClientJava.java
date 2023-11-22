@@ -10,11 +10,13 @@ public class GuiClientJava extends javax.swing.JFrame {
     static Socket socket;
     static BufferedReader serverInput;
     static PrintWriter out;
+    String name;
     
     /**
      * Creates new form GuiClientJava
      */
-    public GuiClientJava(String ip, int port) {
+    public GuiClientJava(String ip, int port, String name) {
+        this.name = name;
         initComponents();
         try {
             socket = new Socket(ip, port);
@@ -81,7 +83,7 @@ public class GuiClientJava extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         String message = jTextField1.getText();
-        out.println(message);
+        out.println(this.name + " : " + message);
         jTextField1.setText("");
     }
 
