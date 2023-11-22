@@ -14,10 +14,10 @@ public class GuiClientJava extends javax.swing.JFrame {
     /**
      * Creates new form GuiClientJava
      */
-    public GuiClientJava() {
+    public GuiClientJava(String ip, int port) {
         initComponents();
         try {
-            socket = new Socket("localhost", 1111);
+            socket = new Socket(ip, port);
             serverInput = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             // Start a background thread to listen for server messages
@@ -103,13 +103,6 @@ public class GuiClientJava extends javax.swing.JFrame {
         });
     }
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GuiClientJava().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
