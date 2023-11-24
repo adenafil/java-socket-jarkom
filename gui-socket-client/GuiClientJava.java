@@ -11,6 +11,7 @@ public class GuiClientJava extends javax.swing.JFrame {
     static BufferedReader serverInput;
     static PrintWriter out;
     String name;
+    private static int index = 0;
     
     /**
      * Creates new form GuiClientJava
@@ -100,9 +101,21 @@ public class GuiClientJava extends javax.swing.JFrame {
     }
 
     private void appendMessageToTextArea(String message) {
+    
+        if (index == 0) {
         SwingUtilities.invokeLater(() -> {
+            jTextArea1.append(name + "has joint to this room chat" + "\n");
+            index++;
+        });
+        } else {
+            SwingUtilities.invokeLater(() -> {
             jTextArea1.append(message + "\n");
         });
+        }
+    }
+
+    public static void indexUP() {
+        index += 1;
     }
 
 

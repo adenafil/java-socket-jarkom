@@ -1,4 +1,5 @@
 package serverAndWorker;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Server {
 
                 Worker worker = new Worker(clientSocket, clients);
                 clients.add(worker);
+                System.out.println("tes");
                 new Thread(worker).start();
             }
         } catch (Exception e) {
@@ -44,6 +46,24 @@ public class Server {
     }
 
     public String getStatus() {
+
+        for (int i = 0; i < clients.size(); i++) {
+            System.out.println("status : " + clients.get(i).status);
+            if (clients.get(i).status == false) {
+                System.out.println("buddy left");
+                setStatus("Hi, there someone has just left my fellow ade, idk who, im just kind of tired of debuggin alone");
+            }
+        }
+
         return this.status;
+    }
+
+    public void removeDisconnectedWorker(Worker worker) {
+        clients.remove(worker);
+        System.out.println("Worker removed: " + worker);
+    }
+
+    public List<Worker> getClients() {
+        return clients;
     }
 }

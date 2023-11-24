@@ -32,7 +32,7 @@ public class EnterYourIP extends JFrame {
                 dispose();
                 java.awt.EventQueue.invokeLater(new Runnable() {
                     public void run() {
-                        System.out.println("Stastus : 200 OK");
+                         System.out.println("Stastus : 200 OK");
                         new GuiClientJava(ip.getText(), Integer.parseInt(port.getText()), name.getText()).setVisible(true);
         
                     }
