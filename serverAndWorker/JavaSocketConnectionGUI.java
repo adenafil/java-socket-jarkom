@@ -50,7 +50,8 @@ public class JavaSocketConnectionGUI extends javax.swing.JFrame {
 
         jLabel1.setText("<html><br>ade<br>ade</html>");
         getContentPane().add(jLabel1);
-        JScrollPane scroller = new JScrollPane(jLabel1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane scroller = new JScrollPane(jLabel1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroller.setBounds(770, 600, 300, 200);
         getContentPane().add(scroller);
 
@@ -83,22 +84,15 @@ public class JavaSocketConnectionGUI extends javax.swing.JFrame {
         }
 
         new Thread(() -> {
-            int i = 0;
-            String comparision = "";
             while (true) {
-                String status = server.getStatus();
-                if (i == 0 && status != null) {
-                    log += "<br>" + server.getStatus() + "<br>";
-                    jLabel1.setText("<html>" + "<br>" + log + "</html>");
-                    comparision = status;
-                    i++;
-                }
-
-                if (i != 0 && comparision.equals(status) == false) {
-                    log += "<br>" + server.getStatus() + "<br>";
-                    jLabel1.setText("<html>" + log + "</html>");
-                    comparision = status;
-                    i++;
+                for (String status : server.getStatus()) {
+                    if (status != null) {
+                        log = null;
+                        for (String message : server.getStatus()) {
+                            log += message + "<br> ";
+                            jLabel1.setText("<html>" + log + "</htmml>");
+                        }
+                    }
                 }
 
                 try {

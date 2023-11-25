@@ -11,6 +11,8 @@ public class Worker implements Runnable {
     private PrintWriter out;
     private List<Worker> listWorkers;
     boolean status;
+    boolean getName = false;
+    String name;
 
     public Worker(Socket s, List<Worker> listWorkers) {
         this.s = s;
@@ -23,6 +25,12 @@ public class Worker implements Runnable {
         try {
             out = new PrintWriter(s.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                if (getName == false) {
+                System.out.println(in.readLine());
+                getName = true;
+                this.name = in.readLine();
+            }
+
 
             String message;
             while ((message = in.readLine()) != null) {

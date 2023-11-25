@@ -1,3 +1,4 @@
+package guiSocketClient;
 import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +12,7 @@ public class GuiClientJava extends javax.swing.JFrame {
     static BufferedReader serverInput;
     static PrintWriter out;
     String name;
-    private static int index = 0;
+    int index = 0;
     
     /**
      * Creates new form GuiClientJava
@@ -46,8 +47,15 @@ public class GuiClientJava extends javax.swing.JFrame {
 
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
 
-        jButton1.setText("Send");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jButton1.setText("click twice this button!!");
+        jButton1.addActionListener(e -> {
+			try {
+				jButton1ActionPerformed(e);
+			} catch (IOException ew) {
+				// TODO Auto-generated catch block
+				ew.printStackTrace();
+			}
+		});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -82,10 +90,24 @@ public class GuiClientJava extends javax.swing.JFrame {
         // Handle action if needed
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws IOException {
+        if (evt.getSource() == jButton1) {
+        if (index == 2) {
+            out.println(this.name + " joint the server" );
+
+        }
+
+        index++;
+        System.out.println(this.index);
         String message = jTextField1.getText();
         out.println(this.name + " : " + message);
         jTextField1.setText("");
+        if (index == 2) {
+            jButton1.setText("send");
+        }
+
+        }
+
     }
 
     private void listenForMessages() {
@@ -93,7 +115,7 @@ public class GuiClientJava extends javax.swing.JFrame {
             String serverMessage;
             while ((serverMessage = serverInput.readLine()) != null) {
                 appendMessageToTextArea(serverMessage);
-                System.out.println(serverMessage);
+                System.out.println("message log : " + serverMessage);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,20 +124,9 @@ public class GuiClientJava extends javax.swing.JFrame {
 
     private void appendMessageToTextArea(String message) {
     
-        if (index == 0) {
         SwingUtilities.invokeLater(() -> {
-            jTextArea1.append(name + "has joint to this room chat" + "\n");
-            index++;
-        });
-        } else {
-            SwingUtilities.invokeLater(() -> {
             jTextArea1.append(message + "\n");
         });
-        }
-    }
-
-    public static void indexUP() {
-        index += 1;
     }
 
 

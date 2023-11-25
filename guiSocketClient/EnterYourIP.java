@@ -1,3 +1,4 @@
+package guiSocketClient;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -7,7 +8,7 @@ import java.awt.FlowLayout;
 
 public class EnterYourIP extends JFrame {
 
-    EnterYourIP() {
+    public EnterYourIP() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new FlowLayout());
 

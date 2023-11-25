@@ -2,17 +2,23 @@ package serverAndWorker;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Server {
 
     private List<Worker> clients = new CopyOnWriteArrayList<>();
-    private String status;
+    private Set<String> status;
     private int port;
     private volatile boolean isRunning = true;
 
     public Server(int port) {
+        this.status = new HashSet<>();
+        this.status.add("log : ");
         this.port = port;
     }
 
@@ -41,17 +47,16 @@ public class Server {
     }
 
     public void setStatus(String message) {
-        this.status = message;
+        this.status.add(message);
         System.out.println(message);
     }
 
-    public String getStatus() {
+    public Set<String> getStatus() {
 
-        for (int i = 0; i < clients.size(); i++) {
-            System.out.println("status : " + clients.get(i).status);
-            if (clients.get(i).status == false) {
-                System.out.println("buddy left");
-                setStatus("Hi, there someone has just left my fellow ade, idk who, im just kind of tired of debuggin alone");
+        for (Worker worker : clients) {
+            if (worker.status == false) {
+                System.out.println("why");
+                removeDisconnectedWorker(worker);                
             }
         }
 
@@ -59,8 +64,9 @@ public class Server {
     }
 
     public void removeDisconnectedWorker(Worker worker) {
+        setStatus("worker has been removed with last message -> " + worker.name);
         clients.remove(worker);
-        System.out.println("Worker removed: " + worker);
+        System.out.println("Worker removed: " + worker.name);
     }
 
     public List<Worker> getClients() {
