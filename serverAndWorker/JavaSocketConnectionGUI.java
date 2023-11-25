@@ -48,7 +48,7 @@ public class JavaSocketConnectionGUI extends javax.swing.JFrame {
         getContentPane().add(jTextField2);
         jTextField2.setBounds(820, 490, 198, 44);
 
-        jLabel1.setText("<html><br>ade<br>ade</html>");
+        jLabel1.setText("<html>Your Log Still Be Empty</html>");
         getContentPane().add(jLabel1);
         JScrollPane scroller = new JScrollPane(jLabel1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
